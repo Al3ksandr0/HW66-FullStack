@@ -13,4 +13,14 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', userRouter);
 
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+// серверак для использования в тестах
+const server = app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+
+// закрываем сервер для теста (не хватило закртиыя сервера ток в тестах)
+export const closeServer = () => {
+    return new Promise(resolve => {
+        server.close(resolve);
+    });
+};
+
+export default app;
